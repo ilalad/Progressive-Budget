@@ -25,6 +25,15 @@ request.onsuccess = function ({ target }) {
   }
 };
 
+function saveRecord(record) {
+  // create a transaction on the pending db with readwrite access
+  // access your pending object store
+  // add record to your store with add method.
+  console.log(db);
+  const transaction = db.transaction(["budget"], "readwrite");
+  const objectStore = transaction.objectStore("budget");
+  objectStore.add(record);
+}
 
 function checkDatabase() {
   // open a transaction on your pending db
@@ -50,6 +59,9 @@ function checkDatabase() {
           // if successful, open a transaction on your pending db
           // access your pending object store
           // clear all items in your store
+          const transaction = db.transaction(["budget"], "readwrite");
+
+          const objectStore = transaction.objectStore("budget");
           objectStore.clear();
         });
     }
